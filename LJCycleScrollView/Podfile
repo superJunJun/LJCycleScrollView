@@ -1,0 +1,8 @@
+platform :ios, '9.0'
+target 'LJCycleScrollView'  do
+
+pod 'SDWebImage', '~>4.0'
+pod 'YYModel'
+pod 'AFNetworking', '~> 3.1.0'
+
+end
