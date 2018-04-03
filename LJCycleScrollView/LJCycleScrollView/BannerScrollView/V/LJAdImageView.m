@@ -8,6 +8,7 @@
 
 #import "LJAdImageView.h"
 #import "LJAdImageInfo.h"
+#import "LJPageControl.h"
 
 #define  pageControlHeight      _scrollviewHeight / 4.5
 
@@ -15,10 +16,16 @@
 {
     NSInteger _scrollviewHeight;
     NSMutableArray *_imageViewArr;
-    NSInteger _scrollCellType;
 }
 
 @property (assign, nonatomic) NSUInteger currentImageIndex;
+
+@property (nonatomic, strong) UIScrollView  *adScrollView;
+
+@property (nonatomic, strong) LJPageControl *adPageControl;
+
+@property (weak, nonatomic) NSTimer *bannerTimer;
+
 @end
 
 @implementation LJAdImageView
@@ -54,9 +61,7 @@
             [_imageViewArr addObject:adImageView];
         }
         
-        UIPageControl *pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, _scrollviewHeight - pageControlHeight, KSCREEWIDTH, pageControlHeight)];
-//        pageControl.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1.5, 1.5);
-        pageControl.currentPageIndicatorTintColor = [UIColor redColor];
+        LJPageControl *pageControl = [[LJPageControl alloc]initWithFrame:CGRectMake(0, _scrollviewHeight - pageControlHeight, KSCREEWIDTH, pageControlHeight)];
         [pageControl addTarget:self action:@selector(pagecontrrolClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:pageControl];
         self.adPageControl = pageControl;

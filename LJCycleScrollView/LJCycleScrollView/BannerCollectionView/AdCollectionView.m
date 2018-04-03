@@ -8,17 +8,23 @@
 
 #import "AdCollectionView.h"
 #import "AdImageCollctionCell.h"
+#import "LJPageControl.h"
+
+#define  scrollviewHeight       AdaptH(130)
+#define  pageControlHeight      scrollviewHeight / 4.5
 
 @interface AdCollectionView()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 /**当前滚动的位置*/
 @property (nonatomic, assign)  NSInteger currentIndex;
-/**上次滚动的位置*/
-@property (nonatomic, assign)  NSInteger lastIndex;
+///**上次滚动的位置*/
+//@property (nonatomic, assign)  NSInteger lastIndex;
 
 /**新构造的model数组*/
 @property (nonatomic, strong) NSMutableArray *adImageDataArrayFixed;
+
+@property (nonatomic, strong) LJPageControl *adPageControl;
 
 @end
 
@@ -42,6 +48,8 @@
 
 - (void)setUpCycle {
     [self addSubview:self.collectionView];
+    
+    [self addSubview:self.adPageControl];
 }
 
 - (UICollectionView *)collectionView {
@@ -65,15 +73,34 @@
     return _collectionView;
 }
 
+- (LJPageControl *)adPageControl
+{
+    if (!_adPageControl) {
+        _adPageControl = [[LJPageControl alloc]initWithFrame:CGRectMake(0, scrollviewHeight - pageControlHeight, KSCREEWIDTH, pageControlHeight)];
+    }
+    return _adPageControl;
+}
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    self.collectionView.frame = self.bounds;
+    
+//    //默认滚动到第一张图片
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:1 inSection:0];
+//    [self scrollToIndexPath:indexPath animated:NO];
+}
 #pragma mark 构造新的图片数组
 
 - (void)setAdImageDataArray:(NSMutableArray *)adImageDataArray {
     if (_adImageDataArray != adImageDataArray) {
         _adImageDataArray = adImageDataArray;
+        self.adPageControl.numberOfPages = adImageDataArray.count;
         
         [self fixNewImageDataArr];
+        self.currentIndex = 1;
         [self.collectionView reloadData];
+        [self scrollToIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] animated:NO];
     }
 }
 
@@ -87,9 +114,7 @@
     _adImageDataArrayFixed = tempArr;
 }
 
-#pragma mark - UICollectionViewDataSource
 #pragma mark 自动滚动时间设置
-
 - (void)setAutomaticallyScrollDuration:(NSTimeInterval)automaticallyScrollDuration
 {
     _automaticallyScrollDuration = automaticallyScrollDuration;
@@ -125,22 +150,7 @@
     }
 }
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    self.collectionView.frame = self.bounds;
-    
-    //默认滚动到第一张图片
-    if (self.collectionView.contentOffset.x == 0)
-    {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:1 inSection:0];
-        [self scrollToIndexPath:indexPath animated:NO];
-        self.currentIndex = 1;
-    }
-}
-
-#pragma mark 代理方法
-
+#pragma mark - UICollectionViewDataSource
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     AdImageCollctionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([AdImageCollctionCell class]) forIndexPath:indexPath];
@@ -165,23 +175,15 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.currentIndex inSection:0];
         [self scrollToIndexPath:indexPath animated:NO];
         return;
-    }
-    
-    //当滚动到第一张图片时，继续向前滚动跳到最后一张
-    if (index == 0)
-    {
+    } else if (index == 0)
+    {//当滚动到第一张图片时，继续向前滚动跳到最后一张
         self.currentIndex = self.adImageDataArray.count;
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.currentIndex inSection:0];
         [self scrollToIndexPath:indexPath animated:NO];
         return;
-    }
-    
-    //避免多次调用currentIndex的setter方法
-    if (self.currentIndex != self.lastIndex)
-    {
+    } else {
         self.currentIndex = index;
     }
-    self.lastIndex = index;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -210,49 +212,24 @@
     }
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return self.frame.size;
-}
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return self.frame.size;
+//}
 
 - (void)setCurrentIndex:(NSInteger)currentIndex
 {
     _currentIndex = currentIndex;
     
-    if (_currentIndex < self.adImageDataArray.count + 1)
+    if (_currentIndex < self.adImageDataArrayFixed.count)
     {
-        //        NSLog(@"%zd",currentIndex);
-        NSInteger index = _currentIndex > 0 ? _currentIndex - 1 : 0;
-//        self.pageControlView.currentPage = index;
-//
-//        self.titleLabel.hidden = !self.titles.count;
-//        if (self.titles.count > index)
-//        {
-//            self.titleLabel.text = self.titles[index];
-//        }
+        NSInteger index = _currentIndex > 0 ? _currentIndex - 1 : _adImageDataArray.count - 1;
+        self.adPageControl.currentPage = index;
         
         return;
     }
     
 }
 
-//- (ADPageControlView *)pageControlView
-//{
-//    if (!_pageControlView) {
-//        _pageControlView = [ADPageControlView pageControlViewWithFrame:CGRectZero];
-//        [self addSubview:_pageControlView];
-//    }
-//    return _pageControlView;
-//}
-
-//- (UILabel *)titleLabel
-//{
-//    if (!_titleLabel)
-//    {
-//        _titleLabel = [[UILabel alloc] init];
-//        [self addSubview:_titleLabel];
-//    }
-//    return _titleLabel;
-//}
 
 @end

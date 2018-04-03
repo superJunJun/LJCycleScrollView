@@ -19,10 +19,8 @@
 
 -(instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-       
-        //        pageControl.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1.5, 1.5);
-        self.currentPageIndicatorTintColor = [UIColor redColor];
-        [self addTarget:self action:@selector(pagecontrrolClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self setValue:[UIImage imageNamed:@"white"] forKeyPath:@"_pageImage"];
+        [self setValue:[UIImage imageNamed:@"red"] forKeyPath:@"_currentPageImage"];
     }
     return self;
 }
@@ -30,14 +28,15 @@
 - (void)setCurrentPage:(NSInteger)currentPage {
     [super setCurrentPage:currentPage];
     
-    [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:.5 initialSpringVelocity:-20 options:UIViewAnimationOptionCurveLinear animations:^{
-        self.backgroundColor = [UIColor whiteColor];
-        self.transform = CGAffineTransformMakeScale(1.4, 1.4);
-    } completion:nil];
-}
-
-- (void)layoutSubviews {
-    self
+    for (UIImageView *imageView in self.subviews) {
+        NSInteger index = [self.subviews indexOfObject:imageView];
+        if (index == currentPage) {
+            [self setValue:[UIImage imageNamed:@"red"] forKeyPath:@"_currentPageImage"];
+        }else {
+            [self setValue:[UIImage imageNamed:@"white"] forKeyPath:@"_pageImage"];
+        }
+        [imageView sizeToFit];
+    }
 }
 
 @end

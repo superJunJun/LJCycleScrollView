@@ -10,10 +10,6 @@
 
 @interface LJAdImageView : UIView
 
-@property (nonatomic, strong) UIScrollView  *adScrollView;
-@property (nonatomic, strong) UIPageControl *adPageControl;
 @property (nonatomic, strong) NSMutableArray *adImageDataArray;
-
-@property (weak, nonatomic) NSTimer *bannerTimer;
 
 @end
