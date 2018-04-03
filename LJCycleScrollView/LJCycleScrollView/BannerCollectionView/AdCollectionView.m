@@ -18,7 +18,7 @@
 @property (nonatomic, assign)  NSInteger lastIndex;
 
 /**新构造的model数组*/
-@property (nonatomic, strong) NSMutableArray *AdImageDataArray2;
+@property (nonatomic, strong) NSMutableArray *adImageDataArrayFixed;
 
 @end
 
@@ -34,7 +34,8 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self setUpCycle];
-        _AdImageDataArray2 = [NSMutableArray new];
+        _adImageDataArray = [NSMutableArray new];
+        _adImageDataArrayFixed = [NSMutableArray new];
     }
     return self;
 }
@@ -70,18 +71,20 @@
 - (void)setAdImageDataArray:(NSMutableArray *)adImageDataArray {
     if (_adImageDataArray != adImageDataArray) {
         _adImageDataArray = adImageDataArray;
-        if (adImageDataArray) {
-            LJAdImageInfo *infoLast = adImageDataArray.lastObject;
-            LJAdImageInfo *infoFirst = adImageDataArray.firstObject;
-
-            [adImageDataArray insertObject:infoLast atIndex:0];
-            [adImageDataArray addObject:infoFirst];
-            _AdImageDataArray2 = adImageDataArray;
-        }
-        [self.collectionView reloadData];
         
-//        [self settimer];
+        [self fixNewImageDataArr];
+        [self.collectionView reloadData];
     }
+}
+
+- (void)fixNewImageDataArr {
+    LJAdImageInfo *infoLast = _adImageDataArray.lastObject;
+    LJAdImageInfo *infoFirst = _adImageDataArray.firstObject;
+    
+    NSMutableArray *tempArr = _adImageDataArray.mutableCopy;
+    [tempArr insertObject:infoLast atIndex:0];
+    [tempArr addObject:infoFirst];
+    _adImageDataArrayFixed = tempArr;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -105,10 +108,9 @@
 }
 
 #pragma mark 自动滚动
-- (void)startScrollAutomtically
-{
+- (void)startScrollAutomtically {
     NSInteger currentIndex = self.currentIndex + 1;
-    currentIndex = (currentIndex == self.AdImageDataArray2.count) ? 1 : currentIndex;
+    currentIndex = (currentIndex == _adImageDataArrayFixed.count) ? 1 : currentIndex;
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:currentIndex inSection:0];
     BOOL isNeedAnim = self.automaticallyScrollDuration <= 0.3 ? NO : YES;
@@ -117,7 +119,7 @@
 
 - (void)scrollToIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated
 {
-    if (self.AdImageDataArray2.count > indexPath.row)
+    if (indexPath.row < _adImageDataArrayFixed.count)
     {
         [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:animated];
     }
@@ -142,20 +144,20 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     AdImageCollctionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([AdImageCollctionCell class]) forIndexPath:indexPath];
-    LJAdImageInfo *imageInfo = self.adImageDataArray[indexPath.row];
+    LJAdImageInfo *imageInfo = _adImageDataArrayFixed[indexPath.row];
     [cell updataCellWithModel:imageInfo atIndex:indexPath.row];
     return cell;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.AdImageDataArray2.count;
+    return _adImageDataArrayFixed.count;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    CGFloat width = self.frame.size.width;
-    NSInteger index = (scrollView.contentOffset.x + width * 0.5) / width;
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
+//    CGFloat width = self.frame.size.width;
+    NSInteger index = scrollView.contentOffset.x / KSCREEWIDTH;
     //当滚动到最后一张图片时，继续滚向后动跳到第一张
     if (index == self.adImageDataArray.count + 1)
     {
@@ -166,7 +168,7 @@
     }
     
     //当滚动到第一张图片时，继续向前滚动跳到最后一张
-    if (scrollView.contentOffset.x < width * 0.5)
+    if (index == 0)
     {
         self.currentIndex = self.adImageDataArray.count;
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.currentIndex inSection:0];
@@ -232,15 +234,6 @@
         return;
     }
     
-}
-
-- (void)setadImageDataArray:(NSArray *)adImageDataArray
-{
-    _adImageDataArray = adImageDataArray;
-    
-    [self.collectionView reloadData];
-//    self.pageControlView.hidden = !_adImageDataArray.count;
-//    self.pageControlView.numberOfPages = _adImageDataArray.count;
 }
 
 //- (ADPageControlView *)pageControlView

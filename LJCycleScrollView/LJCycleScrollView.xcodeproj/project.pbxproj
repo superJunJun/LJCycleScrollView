@@ -18,6 +18,7 @@
 		F47C05D72071DA5000E61C26 /* LJAdImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F47C05D62071DA5000E61C26 /* LJAdImageView.m */; };
 		F47C05E82072291200E61C26 /* AdCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F47C05E72072291200E61C26 /* AdCollectionView.m */; };
 		F47C05EB20722E9400E61C26 /* AdImageCollctionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F47C05EA20722E9400E61C26 /* AdImageCollctionCell.m */; };
+		F47C05F4207363A400E61C26 /* LJPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F47C05F3207363A400E61C26 /* LJPageControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,8 @@
 		F47C05E72072291200E61C26 /* AdCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdCollectionView.m; sourceTree = "<group>"; };
 		F47C05E920722E9400E61C26 /* AdImageCollctionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdImageCollctionCell.h; sourceTree = "<group>"; };
 		F47C05EA20722E9400E61C26 /* AdImageCollctionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdImageCollctionCell.m; sourceTree = "<group>"; };
+		F47C05F2207363A400E61C26 /* LJPageControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LJPageControl.h; sourceTree = "<group>"; };
+		F47C05F3207363A400E61C26 /* LJPageControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LJPageControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +131,8 @@
 			children = (
 				F47C05D52071DA5000E61C26 /* LJAdImageView.h */,
 				F47C05D62071DA5000E61C26 /* LJAdImageView.m */,
+				F47C05F2207363A400E61C26 /* LJPageControl.h */,
+				F47C05F3207363A400E61C26 /* LJPageControl.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -328,6 +333,7 @@
 				F47C05BE2071D7BD00E61C26 /* ViewController.m in Sources */,
 				F47C05E82072291200E61C26 /* AdCollectionView.m in Sources */,
 				F47C05C92071D7BD00E61C26 /* main.m in Sources */,
+				F47C05F4207363A400E61C26 /* LJPageControl.m in Sources */,
 				F47C05BB2071D7BD00E61C26 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
