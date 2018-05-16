@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - JLRoutes (2.1)
   - SDWebImage (4.2.3):
     - SDWebImage/Core (= 4.2.3)
   - SDWebImage/Core (4.2.3)
@@ -21,14 +22,16 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
+  - JLRoutes
   - SDWebImage (~> 4.0)
   - YYModel
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  JLRoutes: d755245322b94227662ea3e43492fdca94e05c5b
   SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: e2bd2d47b68f4c94914944beeea22819770442cf
+PODFILE CHECKSUM: 38ad79b558964d8d00b1d626a3aa31151bef643d
 
 COCOAPODS: 1.4.0.beta.2

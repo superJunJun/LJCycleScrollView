@@ -4,5 +4,6 @@ target 'LJCycleScrollView'  do
 pod 'SDWebImage', '~>4.0'
 pod 'YYModel'
 pod 'AFNetworking', '~> 3.1.0'
+pod 'JLRoutes'
 
 end

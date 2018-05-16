@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D471096DF6C8B984DF70E0C9 /* libPods-LJCycleScrollView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E4AB2E6D3E4841AC8DFC20E /* libPods-LJCycleScrollView.a */; };
+		F466BE6F20ABCD250092A471 /* AppDelegate+RegistRouters.m in Sources */ = {isa = PBXBuildFile; fileRef = F466BE6E20ABCD250092A471 /* AppDelegate+RegistRouters.m */; };
 		F47C05BB2071D7BD00E61C26 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F47C05BA2071D7BD00E61C26 /* AppDelegate.m */; };
 		F47C05BE2071D7BD00E61C26 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F47C05BD2071D7BD00E61C26 /* ViewController.m */; };
 		F47C05C12071D7BD00E61C26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F47C05BF2071D7BD00E61C26 /* Main.storyboard */; };
@@ -25,6 +26,8 @@
 		3F32158494B45F166B80C417 /* Pods-LJCycleScrollView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LJCycleScrollView.release.xcconfig"; path = "Pods/Target Support Files/Pods-LJCycleScrollView/Pods-LJCycleScrollView.release.xcconfig"; sourceTree = "<group>"; };
 		5E4AB2E6D3E4841AC8DFC20E /* libPods-LJCycleScrollView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LJCycleScrollView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEC5A62E6EB78EDE28F7EE8A /* Pods-LJCycleScrollView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LJCycleScrollView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LJCycleScrollView/Pods-LJCycleScrollView.debug.xcconfig"; sourceTree = "<group>"; };
+		F466BE6D20ABCD120092A471 /* AppDelegate+RegistRouters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+RegistRouters.h"; sourceTree = "<group>"; };
+		F466BE6E20ABCD250092A471 /* AppDelegate+RegistRouters.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+RegistRouters.m"; sourceTree = "<group>"; };
 		F47C05B62071D7BD00E61C26 /* LJCycleScrollView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LJCycleScrollView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F47C05B92071D7BD00E61C26 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F47C05BA2071D7BD00E61C26 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -103,6 +106,8 @@
 			children = (
 				F47C05B92071D7BD00E61C26 /* AppDelegate.h */,
 				F47C05BA2071D7BD00E61C26 /* AppDelegate.m */,
+				F466BE6D20ABCD120092A471 /* AppDelegate+RegistRouters.h */,
+				F466BE6E20ABCD250092A471 /* AppDelegate+RegistRouters.m */,
 				F47C05E32072289300E61C26 /* Src */,
 				F47C05DF2072007A00E61C26 /* Macros */,
 				F47C05D82071DC8600E61C26 /* Category */,
@@ -327,6 +332,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F466BE6F20ABCD250092A471 /* AppDelegate+RegistRouters.m in Sources */,
 				F47C05D72071DA5000E61C26 /* LJAdImageView.m in Sources */,
 				F47C05D42071D8E600E61C26 /* LJAdImageInfo.m in Sources */,
 				F47C05EB20722E9400E61C26 /* AdImageCollctionCell.m in Sources */,

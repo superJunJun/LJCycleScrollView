@@ -18,13 +18,13 @@
     NSMutableArray *_imageViewArr;
 }
 
-@property (assign, nonatomic) NSUInteger currentImageIndex;
+@property (nonatomic, assign) NSUInteger currentImageIndex;
 
 @property (nonatomic, strong) UIScrollView  *adScrollView;
 
 @property (nonatomic, strong) LJPageControl *adPageControl;
 
-@property (weak, nonatomic) NSTimer *bannerTimer;
+@property (nonatomic, weak) NSTimer *bannerTimer;
 
 @end
 
@@ -71,15 +71,29 @@
 
 - (void)setAdImageDataArray:(NSMutableArray *)adImageDataArray {
     if (adImageDataArray.count > 0) {
-        _adPageControl.numberOfPages = adImageDataArray.count;
-        CGSize pointSize = [_adPageControl sizeForNumberOfPages:adImageDataArray.count];
-        _adPageControl.size = pointSize;
-        _adPageControl.center = CGPointMake(KSCREEWIDTH / 2.0, (_scrollviewHeight - pageControlHeight) + pageControlHeight / 2);
+        
+        NSMutableArray *adImageInfoArr = [self analysisData:adImageDataArray];
+        [self resetPageControl:adImageInfoArr.count];
         
         _adImageDataArray = @[].mutableCopy;
-        _adImageDataArray = adImageDataArray;
+        _adImageDataArray = adImageInfoArr;
         [self fixArray:adImageDataArray];
     }
+}
+- (void)resetPageControl:(NSInteger )count {
+    _adPageControl.numberOfPages = count;
+    CGSize pointSize = [_adPageControl sizeForNumberOfPages:count];
+    _adPageControl.size = pointSize;
+    _adPageControl.center = CGPointMake(KSCREEWIDTH / 2.0, (_scrollviewHeight - pageControlHeight) + pageControlHeight / 2);
+}
+
+- (NSMutableArray *)analysisData:(NSMutableArray *)dataArr {
+    NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:0];
+    for (NSDictionary *news in dataArr) {
+        LJAdImageInfo *imageModel = [LJAdImageInfo yy_modelWithJSON:news];
+        [tempArray addObject:imageModel];
+    }
+    return tempArray;
 }
 
 - (void)fixArray:(NSArray *)adImageViewArr{
@@ -180,11 +194,13 @@
 }
 
 
-//#pragma mark - tap
-//- (void)tap {
-//    if ([self.delegate respondsToSelector:@selector(tapScrollViewCell)]) {
-//        [self.delegate tapScrollViewCell];
-//    }
-//}
+//#pragma mark - tap 路由跳转
+- (void)tap {
+//    NSDictionary *searchDic = @{@"recName":recName, @"fullPartMark":@(1)};
+//    NSString *url = [NSString stringWithFormat:@"RouteOne://push/ASGStudenPartTimeJobController?searchDic=%@&isPartTimeJob=%@",searchDic,@(self.isPartTimeJob)];
+//    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:url]];
+
+    
+}
 
 @end

@@ -94,14 +94,25 @@
 
 - (void)setAdImageDataArray:(NSMutableArray *)adImageDataArray {
     if (_adImageDataArray != adImageDataArray) {
-        _adImageDataArray = adImageDataArray;
-        self.adPageControl.numberOfPages = adImageDataArray.count;
         
+        NSMutableArray *adImageInfoArr = [self analysisData:adImageDataArray];
+        _adImageDataArray = adImageInfoArr;
+        
+        self.adPageControl.numberOfPages = _adImageDataArray.count;
         [self fixNewImageDataArr];
         self.currentIndex = 1;
         [self.collectionView reloadData];
         [self scrollToIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] animated:NO];
     }
+}
+
+- (NSMutableArray *)analysisData:(NSMutableArray *)dataArr {
+    NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:0];
+    for (NSDictionary *news in dataArr) {
+        LJAdImageInfo *imageModel = [LJAdImageInfo yy_modelWithJSON:news];
+        [tempArray addObject:imageModel];
+    }
+    return tempArray;
 }
 
 - (void)fixNewImageDataArr {
@@ -207,7 +218,7 @@
         [self.bannerTimer invalidate];
         self.bannerTimer = nil;
         NSTimer *timer = [NSTimer timerWithTimeInterval:self.automaticallyScrollDuration target:self selector:@selector(startScrollAutomtically) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+        [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
         self.bannerTimer = timer;
     }
 }

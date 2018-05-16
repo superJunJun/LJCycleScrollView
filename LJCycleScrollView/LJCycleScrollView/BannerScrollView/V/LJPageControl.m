@@ -35,7 +35,11 @@
         }else {
             [self setValue:[UIImage imageNamed:@"white"] forKeyPath:@"_pageImage"];
         }
-        [imageView sizeToFit];
+        CGPoint center = imageView.center;
+        [UIView animateWithDuration:0.1 animations:^{
+            [imageView sizeToFit];
+            imageView.center = center;
+        }];
     }
 }
 

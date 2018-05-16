@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <JLRoutes.h>
+#import "AppDelegate+RegistRouters.h"
 
 @interface AppDelegate ()
 
@@ -17,7 +19,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self registRouters];
     return YES;
+}
+
+- (void)registRouters {
+    [self registerRouteWithScheme:@"RouteOne"];
 }
 
 

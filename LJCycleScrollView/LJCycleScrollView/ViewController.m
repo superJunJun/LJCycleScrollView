@@ -25,7 +25,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     [self creatScrollCycleUI];
-    [self creatColectionCycleUI];
+//    [self creatColectionCycleUI];
     [self loadData];
     
 }
@@ -58,13 +58,17 @@
         if (data) {
             NSDictionary *contentDic = [data objectForKey:@"contents"];
             NSArray *banner_list = [contentDic objectForKey:@"rows"];
-            NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:0];
-            for (NSDictionary *news in banner_list) {
-                LJAdImageInfo *imageModel = [LJAdImageInfo yy_modelWithJSON:news];
-                [tempArray addObject:imageModel];
-            }
-            self.adScrollView.adImageDataArray = tempArray;
-            self.adCollectionView.adImageDataArray = tempArray;
+//            NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:0];
+            
+            self.adScrollView.adImageDataArray = banner_list.mutableCopy;
+            self.adCollectionView.adImageDataArray = banner_list.mutableCopy;
+
+//            for (NSDictionary *news in banner_list) {
+//                LJAdImageInfo *imageModel = [LJAdImageInfo yy_modelWithJSON:news];
+//                [tempArray addObject:imageModel];
+//            }
+//            self.adScrollView.adImageDataArray = tempArray;
+//            self.adCollectionView.adImageDataArray = tempArray;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         

@@ -4,6 +4,18 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.isg.routers</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>RouteOne</string>
+				<string>RouteTwo</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleDisplayName</key>
 	<string>轮播图</string>
 	<key>CFBundleExecutable</key>
